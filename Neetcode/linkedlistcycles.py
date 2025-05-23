@@ -1,13 +1,36 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
-        slow = head
-        fast = head
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if head.next == None: 
+                head = None
+                return head
 
-        while fast and fast.next:
-            slow = slow.next         
-            fast = fast.next.next  
+                        
 
-            if slow == fast:
-                return True         
+        curr = head
 
-        return False                 
+        nthNode = head
+        nthNodePrev = ListNode()
+        nthNodeNext = head.next
+
+        for _ in range(n):
+            curr = curr.next
+        
+
+        if not curr:
+            return head.next
+
+
+        while curr:
+            curr = curr.next
+            nthNodePrev = nthNode
+            nthNode = nthNode.next
+            nthNodeNext = nthNodeNext.next
+
+        nthNodePrev.next = nthNodeNext
+
+        return head
